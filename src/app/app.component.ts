@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.hierarchyData = this.hierarchyService.generateHierarchyTree(this.tree);
+    console.log(this.hierarchyData,'hierarchyData')
   }
 }
 

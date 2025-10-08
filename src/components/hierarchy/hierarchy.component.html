@@ -1,13 +1,25 @@
-<ng-container *ngTemplateOutlet="nodeTemplate; context: { nodes: heirarchyData() }"></ng-container>
-
-
-<ng-template #nodeTemplate let-nodes="nodes">
-    @for (node of nodes; track node.label) {
-    <div>{{node.isRoot ? "":"- "}}{{ node.label }}</div>
-        @if (node?.childrens?.length) {
-        <div style="margin-left: 20px;">
-            <ng-container *ngTemplateOutlet="nodeTemplate; context: { nodes: node.childrens }"></ng-container>
-        </div>
+<div>
+    <ul>
+        @for (node of heirarchyData(); track node.label) {
+        <li >
+            <span>{{ node.label }}</span>
+            @if (node?.childrens?.length) {
+            <ng-container *ngTemplateOutlet="childrenTemplate; context: { childrens: node.childrens }"></ng-container>
+            }
+        </li>
         }
-    }
-</ng-template>  
+    </ul>
+</div>
+
+<ng-template #childrenTemplate let-childrens="childrens">
+    <ul style="list-style-type:circle;">
+        @for (child of childrens; track child.label) {
+        <li>
+            <span>{{ child.label }}</span>
+            @if (child?.childrens?.length ) {
+            <ng-container *ngTemplateOutlet="childrenTemplate; context: { childrens: child.childrens }"></ng-container>
+            }
+        </li>
+        }
+    </ul>
+</ng-template>

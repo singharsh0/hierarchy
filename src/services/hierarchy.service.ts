@@ -27,7 +27,7 @@ export class HierarchyService {
     }
 
     const children = configData[key];
-    if (children && children.length > 0) {
+    if (!!children?.length) {
       children.forEach((childKey: string) => {
         if (configData[childKey]) {
           const childNode = this.generateNodeData(childKey, configData);
