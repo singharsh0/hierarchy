@@ -1,0 +1,20 @@
+<div class="hierarchy-tree">
+    @for (node of heirarchyData(); track $index) {
+    <ng-container *ngTemplateOutlet="nodeTemplate;  context: { $implicit: node, level: 0 }">
+    </ng-container>
+    }
+</div>
+
+<ng-template #nodeTemplate let-node let-level="level">
+    <div class="node-line">
+        {{getSpaces(level)}}{{getDash(level)}} {{node.label}}
+    </div>
+
+    <ng-container *ngIf="!!node?.childrens?.length">
+        @for (children of node.childrens; track $index) {
+        <ng-container *ngTemplateOutlet="nodeTemplate; 
+            context: { $implicit: children, level: level + 1 }">
+        </ng-container>
+        }
+    </ng-container>
+</ng-template>
